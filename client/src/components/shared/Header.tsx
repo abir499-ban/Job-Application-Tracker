@@ -14,56 +14,22 @@ const Header = () => {
                                     <li>
                                         <a
                                             className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
-                                            href="#"
+                                            href="/"
                                         >
-                                            About
+                                            Home
                                         </a>
                                     </li>
 
                                     <li>
                                         <a
                                             className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
-                                            href="#"
+                                            href="/addjob"
                                         >
-                                            Careers
+                                            Add a Job Application
                                         </a>
                                     </li>
 
-                                    <li>
-                                        <a
-                                            className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
-                                            href="#"
-                                        >
-                                            History
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a
-                                            className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
-                                            href="#"
-                                        >
-                                            Services
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a
-                                            className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
-                                            href="#"
-                                        >
-                                            Projects
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a
-                                            className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
-                                            href="#"
-                                        >
-                                            Blog
-                                        </a>
-                                    </li>
+                                    
                                 </ul>
                             </nav>
                         </div>

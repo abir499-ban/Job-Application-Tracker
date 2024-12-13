@@ -1,4 +1,5 @@
 import { useState } from "react"
+import {Loader} from  'lucide-react'
 
 const Addjob = () => {
     const [AddJobPayload, setAddJobPayload] = useState({
@@ -6,8 +7,10 @@ const Addjob = () => {
         companyName : '',
         notes : ''
     })
+    const [loading, setloading] = useState(false)
     const handlesubmit = async(e : React.MouseEvent<HTMLButtonElement>) =>{
         e.preventDefault();
+        setloading(true)
         console.table(AddJobPayload);
         try {
             const data = await fetch('http://localhost:8000/job', {
@@ -21,6 +24,8 @@ const Addjob = () => {
             console.log(result)
         } catch (error) {
             console.log(error)
+        }finally{
+            setloading(false)
         }
     }
     
@@ -101,7 +106,11 @@ const Addjob = () => {
                                 type="submit"
                                 className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white hover:bg-blue-600"
                             >
-                                Submit
+                                {loading ? (
+                                    <Loader />
+                                ) : (
+                                    <p>Submit</p>
+                                )}
                             </button>
                         </div>
                     </form>
