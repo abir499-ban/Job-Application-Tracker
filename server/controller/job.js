@@ -28,6 +28,17 @@ async function createJob(req, res) {
 }
 
 
+async function getAlljobs(req, res){
+    try {
+        const allJobs = await JobsModel.find({});
+        return res.status(201).json({message:allJobs, success : true})
+    } catch (error) {
+        return res.status(501).json({message : "Internal Server Error", success:false})
+    }
+}
+
+
 module.exports = {
     createJob,
+    getAlljobs
 }
