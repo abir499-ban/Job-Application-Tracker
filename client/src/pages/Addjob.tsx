@@ -1,6 +1,29 @@
-
+import { useState } from "react"
 
 const Addjob = () => {
+    const [AddJobPayload, setAddJobPayload] = useState({
+        jobTitle : '',
+        companyName : '',
+        notes : ''
+    })
+    const handlesubmit = async(e : React.MouseEvent<HTMLButtonElement>) =>{
+        e.preventDefault();
+        console.table(AddJobPayload);
+        try {
+            const data = await fetch('http://localhost:8000/job', {
+                method : 'POST',
+                headers : {
+                    'Content-Type' : 'Application/json'
+                },
+                body : JSON.stringify({...AddJobPayload})
+            })
+            const result = await data.json();
+            console.log(result)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
     return (
         <>
             {/*
@@ -26,9 +49,14 @@ const Addjob = () => {
 
                             <div className="relative">
                                 <input
+                                    name="jobTitle"
                                     type="text"
                                     className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                                     placeholder="Enter Job Title"
+                                    onChange={(e)=>setAddJobPayload((prev)=>({
+                                        ...prev,
+                                        jobTitle : e.target.value
+                                    }))}
                                 />
                             </div>
                         </div>
@@ -38,9 +66,14 @@ const Addjob = () => {
 
                             <div className="relative">
                                 <input
+                                    name="companyName"
                                     type="companyName"
                                     className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                                     placeholder="Enter Company Name"
+                                    onChange={(e)=>setAddJobPayload((prev)=>({
+                                        ...prev,
+                                        companyName : e.target.value
+                                    }))}
                                 />
                             </div>
                         </div>
@@ -50,15 +83,21 @@ const Addjob = () => {
 
                             <div className="relative">
                                 <input
+                                    name="notes"
                                     type="text"
                                     className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                                     placeholder="Enter any Note you have for the job"
+                                    onChange={(e)=>setAddJobPayload((prev)=>({
+                                        ...prev,
+                                        notes : e.target.value
+                                    }))}
                                 />
                             </div>
                         </div>
 
                         <div className="flex items-center justify-between">
                             <button
+                            onClick={handlesubmit}
                                 type="submit"
                                 className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white hover:bg-blue-600"
                             >
