@@ -10,10 +10,10 @@ const Header = () => {
 
                         <div className="hidden md:block">
                             <nav aria-label="Global">
-                                <ul className="flex items-center gap-6 text-sm">
+                                <ul className="flex items-center gap-6 text-sm justify-center text-center">
                                     <li>
                                         <a
-                                            className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+                                            className=" font-poppins text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
                                             href="/"
                                         >
                                             Home
@@ -22,7 +22,7 @@ const Header = () => {
 
                                     <li>
                                         <a
-                                            className="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+                                            className=" font-poppins text-yellow-400 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
                                             href="/addjob"
                                         >
                                             Add a Job Application
