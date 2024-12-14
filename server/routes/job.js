@@ -1,6 +1,5 @@
 const express = require('express');
-const { createJob, getAlljobs } = require('../controller/job');
-const JobsModel = require('../model/job');
+const { createJob, getAlljobs, findJob,updateJob } = require('../controller/job');
 const router = express.Router();
 
 
@@ -12,19 +11,8 @@ router.get('/alljobs', getAlljobs);
 
 router.post('/', createJob);
 
-router.get('/:id', async (req, res) => {
-    try {
-        const id = req.params.id;
-        if (!id) return res.status(400).json({ message: "Invalid GET request", success: false })
+router.get('/:id', findJob)
 
-        const job = await JobsModel.findById(id);
-        if (!job) return res.status(400).json({ message: "No such job registered", success: false })
-
-
-        return res.status(201).json({ message: job, success: true });
-    } catch (error) {
-        return res.status(500).json({ message: "Internal Server Error", success: false });
-    }
-})
+router.patch('/:id' , updateJob)
 
 module.exports = router

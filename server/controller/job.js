@@ -28,17 +28,67 @@ async function createJob(req, res) {
 }
 
 
-async function getAlljobs(req, res){
+async function getAlljobs(req, res) {
     try {
         const allJobs = await JobsModel.find({});
-        return res.status(201).json({message:allJobs, success : true})
+        return res.status(201).json({ message: allJobs, success: true })
     } catch (error) {
-        return res.status(501).json({message : "Internal Server Error", success:false})
+        return res.status(501).json({ message: "Internal Server Error", success: false })
     }
+}
+
+async function findJob(req, res) {
+    try {
+        const id = req.params.id;
+        if (!id) return res.status(400).json({ message: "Invalid GET request", success: false })
+
+        const job = await JobsModel.findById(id);
+        if (!job) return res.status(400).json({ message: "No such job registered", success: false })
+
+
+        return res.status(201).json({ message: job, success: true });
+    } catch (error) {
+        return res.status(500).json({ message: "Internal Server Error", success: false });
+    }
+}
+
+
+async function updateJob(req, res) {
+    try {
+        const { jobTitle, companyName, status, notes } = req.body;
+        const id = req.params.id;
+
+        if (!id) return res.status(400).json({ message: "Invalid  request", success: false })
+
+        if (!jobTitle || !companyName || !notes || !status)
+            return res.status(400).json({ message: "Invalid  request", success: false })
+
+        const job = await JobsModel.findById(id);
+
+        if (!job) return res.status(400).json({ message: "No such job registered", success: false })
+
+        await JobsModel.findOneAndUpdate({
+            _id : id
+        }, {
+            $set: {
+                jobTitle: jobTitle,
+                companyName: companyName,
+                status: status,
+                notes: notes
+            }
+        })
+        return res.status(201).json({message:"Job Application Updated", success:true})
+    }
+    catch (error) {
+        return res.status(500).json({ message: "Internal Server Error", success: false });
+    }
+
 }
 
 
 module.exports = {
     createJob,
-    getAlljobs
+    getAlljobs,
+    findJob,
+    updateJob
 }
