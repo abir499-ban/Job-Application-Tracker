@@ -1,18 +1,21 @@
 import React from "react";
 import { JobApplication } from '../../types/types'
 import {Button} from '@material-tailwind/react'
+import {useNavigate} from 'react-router-dom'
 
 interface JobInfoCardProps {
     applicationInfo: JobApplication[];
 }
 
 const JobInfoCard: React.FC<JobInfoCardProps> = ({ applicationInfo }) => {
+    const navigate = useNavigate();
     const EditJobInfo = async(JobId : string) =>{
         try {
             console.log(JobId)
         } catch (error) {
             console.log(error)
         }
+        navigate('/editjob')
     }
     return (
         <div className="p-6 rounded-lg">
@@ -35,7 +38,7 @@ const JobInfoCard: React.FC<JobInfoCardProps> = ({ applicationInfo }) => {
                             placeholder={undefined} 
                             onPointerEnterCapture={undefined} 
                             onPointerLeaveCapture={undefined} 
-                            onClick={(e)=> EditJobInfo(job._id)}
+                            onClick={()=> EditJobInfo(job._id)}
                             > Edit</Button>
                         </div>
                     ))}
