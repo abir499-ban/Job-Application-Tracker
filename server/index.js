@@ -4,7 +4,8 @@ const PORT = 8000;
 const cors = require('cors')
 require('dotenv').config();
 const {dbConnect}  = require('./dbConnect')
-const router  = require('./routes/job')
+const Jobrouter  = require('./routes/job')
+const Userrouter = require('./routes/user')
 
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
@@ -25,7 +26,8 @@ dbConnect();
 
 
 
-app.use('/job', router)
+app.use('/job', Jobrouter)
+app.use('/user', Userrouter)
 
 
 app.get('/', (req, res)=>{
