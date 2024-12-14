@@ -1,7 +1,9 @@
 import { useState } from "react"
 import {Loader} from  'lucide-react'
+import {useNavigate} from 'react-router-dom'
 
 const Addjob = () => {
+    const navigate  = useNavigate();
     const [AddJobPayload, setAddJobPayload] = useState({
         jobTitle : '',
         companyName : '',
@@ -22,6 +24,7 @@ const Addjob = () => {
             })
             const result = await data.json();
             console.log(result)
+            navigate('/')
         } catch (error) {
             console.log(error)
         }finally{
