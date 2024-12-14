@@ -1,20 +1,8 @@
 import { useEffect, useState } from "react";
 import { Loader } from "lucide-react";
-import { Card, Typography } from "@material-tailwind/react";
-
-
-
-interface JobApplication {
-  _id: string;
-  companyName: string;
-  createdAt: string;
-  dateApplied: string;
-  jobTitle: string;
-  notes: string;
-  status: "APPLIED" | "INTERVIEW" | "OFFERED" | "REJECTED";
-  updatedAt: string;
-  __v: number;
-}
+import { Chart } from 'react-google-charts'
+import Jobinfocard from "../components/shared/Jobinfocard";
+import { JobApplication } from '../types/types'
 
 const Dashboard = () => {
   const [applicationinfo, setapplicationinfo] = useState<JobApplication[]>([])
@@ -40,6 +28,17 @@ const Dashboard = () => {
       Rejected: rejected
     })
   }
+  const data = [
+    ["Status", "Application per Status"],
+    ["Applied", statusCount.Applied],
+    ["Interviewed", statusCount.Interviewing],
+    ["Offered", statusCount.Offered],
+    ["Rejected", statusCount.Rejected],
+  ];
+  const options = {
+    title: "Application per status",
+    colors: ["#4536cf", "#f27a11", "#21b80d", "#f70202"],
+  };
 
   useEffect(() => {
     const fetchJobsInfo = async () => {
@@ -78,107 +77,50 @@ const Dashboard = () => {
           {applicationinfo.length == 0 ? (
             <p><Loader /></p>
           ) : (
-            <article className="rounded-xl bg-white p-4 ring ring-indigo-50 sm:p-6 lg:p-8">
-              <div className="flex items-start sm:gap-8">
-                <div>
+            <article className="rounded-xl bg-white p-1 ring ring-indigo-50 sm:p-6 sm:px-0 lg:p-8">
+              <div className="flex flex-col md:flex-row items-start gap-6 sm:gap-8">
+                {/* Info Section */}
+                <div className="flex-1">
                   <strong
-                    className="  bg-teal-500 px-3 py-1.5 text-[15px] font-medium text-white rounded-lg"
+                    className="bg-teal-500 px-3 py-1.5 text-[15px] font-medium text-white rounded-lg"
                   >
                     Total Job Applicants : {applicationinfo.length}
                   </strong>
 
                   <h3 className="mt-4 text-lg font-medium sm:text-xl">
-                    <p className="font-poppins"> Applications as per status </p>
+                    <p className="font-poppins">Applications as per status</p>
                   </h3>
 
-                  <div className="mt-4 flex flex-row gap-2 grid-cols-4 sm:flex sm:items-center sm:gap-2 text-center items-center md:grid-cols-2 sm:grid-cols-1">
-                    <p className="text-blue-600">Applied: {statusCount.Applied}</p>
-                    <p className="text-orange-300">Interviewed : {statusCount.Interviewing}</p>
-                    <p className="text-green-600">Offered: {statusCount.Offered}</p>
-                    <p className="text-red-500">Rejected: {statusCount.Rejected}</p>
+                  <div className="mt-4 flex flex-col gap-2 text-center lg:mr-auto">
+                    <p className="text-blue-600 font-bold text-xl font-poppins">Applied: {statusCount.Applied}</p>
+                    <p className="text-orange-800 font-bold text-xl font-poppins">Interviewed: {statusCount.Interviewing}</p>
+                    <p className="text-green-600 font-bold text-xl font-poppins">Offered: {statusCount.Offered}</p>
+                    <p className="text-red-500 font-bold text-xl font-poppins">Rejected: {statusCount.Rejected}</p>
                   </div>
                 </div>
+
+                {/* Chart Section */}
+                <div className="w-full md:w-auto md:ml-auto">
+                  <Chart
+                    chartType="PieChart"
+                    data={data}
+                    options={options}
+                    width={"100%"}
+                    height={"300px"}
+                  />
+                </div>
+              </div>
+              <div>
+
               </div>
             </article>
           )}
         </div>
+        <div className="py-10 px-7 sm:px-2 lg:px-14">
+          <Jobinfocard applicationInfo={applicationinfo} />
 
-
-        <div>
         </div>
 
-
-        <Card className="h-full w-full overflow-scroll">
-          <table className="w-full min-w-max table-auto text-left">
-            <thead>
-              <tr>
-                {TABLE_HEAD.map((head) => (
-                  <th
-                    key={head}
-                    className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-                  >
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal leading-none opacity-70"
-                    >
-                      {head}
-                    </Typography>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {TABLE_ROWS.map(({ name, job, date }, index) => {
-                const isLast = index === TABLE_ROWS.length - 1;
-                const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
-
-                return (
-                  <tr key={name}>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {name}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {job}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {date}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        as="a"
-                        href="#"
-                        variant="small"
-                        color="blue-gray"
-                        className="font-medium"
-                      >
-                        Edit
-                      </Typography>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </Card>
       </div>
     </>
   );
