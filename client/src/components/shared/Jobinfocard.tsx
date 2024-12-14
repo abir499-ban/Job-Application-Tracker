@@ -15,7 +15,7 @@ const JobInfoCard: React.FC<JobInfoCardProps> = ({ applicationInfo }) => {
         } catch (error) {
             console.log(error)
         }
-        navigate('/editjob')
+        navigate(`/editjob?id=${JobId}`)
     }
     return (
         <div className="p-6 rounded-lg">
