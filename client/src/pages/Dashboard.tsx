@@ -3,6 +3,8 @@ import { Loader } from "lucide-react";
 import { Chart } from 'react-google-charts'
 import Jobinfocard from "../components/shared/Jobinfocard";
 import { JobApplication } from '../types/types'
+import { Select, Option, Button } from "@material-tailwind/react";
+
 
 const Dashboard = () => {
   const [applicationinfo, setapplicationinfo] = useState<JobApplication[]>([])
@@ -12,6 +14,7 @@ const Dashboard = () => {
     Offered: 0,
     Rejected: 0
   })
+  const [FilteringStatus, setFilteringStatus] = useState("")
 
   const setStatusInfo = (JobCollection: JobApplication[]) => {
     let applied = 0; let interviewing = 0; let offered = 0; let rejected = 0;
@@ -56,6 +59,16 @@ const Dashboard = () => {
     fetchJobsInfo();
   }, [])
 
+  const HandleFilterBystatus = async (status: string) => {
+    try {
+      if(status === "") return;
+      
+      console.log(status)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <div className="py-14 px-9 sm:px-4 lg:px-10">
@@ -75,7 +88,7 @@ const Dashboard = () => {
         </div>
         <div>
           {applicationinfo.length == 0 ? (
-            <p><Loader /></p>
+            <div className="grid grid-cols-1  place-items-center h-56"> <Loader size={44} /></div>
           ) : (
             <article className="rounded-xl bg-white p-1 ring ring-indigo-50 sm:p-6 sm:px-0 lg:p-8">
               <div className="flex flex-col md:flex-row items-start gap-6 sm:gap-8">
@@ -110,15 +123,48 @@ const Dashboard = () => {
                   />
                 </div>
               </div>
-              <div>
-
-              </div>
             </article>
           )}
+
         </div>
+        <div className="container mx-auto py-10 px-4">
+          <h2 className="py-4 font-bold text-base md:text-lg lg:text-xl text-center">Filter Job Applications</h2>
+          <div className="grid grid-cols-3 gap-5 sm:gap-4 place-items-center">
+            <div className="w-full sm:w-3/4 lg:w-72">
+              <Select
+                label="Filter by Status"
+                placeholder={FilteringStatus === "" ? 'Select Status' : FilteringStatus}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                name="status"
+                onChange={(value?: string) => {
+                  if (value) setFilteringStatus(value)
+                }}
+              >
+                <Option value="APPLIED">Applied</Option>
+                <Option value="INTERVIEW">Interview</Option>
+                <Option value="OFFERED">Offered</Option>
+                <Option value="REJECTED">Rejected</Option>
+              </Select>
+            </div>
+            <div className="w-full sm:w-auto text-center">
+              <Button
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                onClick={() => HandleFilterBystatus(FilteringStatus)}
+              >
+                Filter
+              </Button>
+            </div>
+          </div>
+        </div>
+
+
+
+
         <div className="py-10 px-7 sm:px-2 lg:px-14">
           <Jobinfocard applicationInfo={applicationinfo} />
-
         </div>
 
       </div>

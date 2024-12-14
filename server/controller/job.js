@@ -68,7 +68,7 @@ async function updateJob(req, res) {
         if (!job) return res.status(400).json({ message: "No such job registered", success: false })
 
         await JobsModel.findOneAndUpdate({
-            _id : id
+            _id: id
         }, {
             $set: {
                 jobTitle: jobTitle,
@@ -77,7 +77,7 @@ async function updateJob(req, res) {
                 notes: notes
             }
         })
-        return res.status(201).json({message:"Job Application Updated", success:true})
+        return res.status(201).json({ message: "Job Application Updated", success: true })
     }
     catch (error) {
         return res.status(500).json({ message: "Internal Server Error", success: false });
@@ -86,9 +86,25 @@ async function updateJob(req, res) {
 }
 
 
+async function fetchJobByStatus(req, res) {
+    try {
+        const status = req.params.status;
+        if (!status) return res.status(400).json({ message: "Invalid  request", success: false })
+
+        const Jobs = await JobsModel.find({ status: status });
+        if (Jobs.length === 0) return res.status(400).json({ message: "No Jobs exist with such status", success: false })
+
+        return res.status(201).json({ message: Jobs, success: true })
+    } catch (error) {
+        return res.status(500).json({ message: "Internal Server Error", success: false });
+    }
+}
+
+
 module.exports = {
     createJob,
     getAlljobs,
     findJob,
-    updateJob
+    updateJob,
+    fetchJobByStatus
 }

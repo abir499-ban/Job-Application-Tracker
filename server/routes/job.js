@@ -1,5 +1,5 @@
 const express = require('express');
-const { createJob, getAlljobs, findJob,updateJob } = require('../controller/job');
+const { createJob, getAlljobs, findJob,updateJob, fetchJobByStatus } = require('../controller/job');
 const router = express.Router();
 
 
@@ -14,5 +14,7 @@ router.post('/', createJob);
 router.get('/:id', findJob)
 
 router.patch('/:id' , updateJob)
+
+router.get('/filterjobs/:status', fetchJobByStatus);
 
 module.exports = router
