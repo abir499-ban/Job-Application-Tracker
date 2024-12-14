@@ -129,7 +129,7 @@ const Editjob = () => {
                             <input
                                 type="text"
                                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                                placeholder="Enter Company Name"
+                                placeholder="Enter notes"
                                 value={JobDetails.notes}
                                 onChange={(e) => setJobDetails((prev) => ({
                                     ...prev,

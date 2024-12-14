@@ -6,7 +6,7 @@ async function createJob(req, res) {
 
 
         //validating feilds
-        if (!jobTitle || !companyName || !notes) {
+        if (!jobTitle || !companyName) {
             return res.status(401).json({ message: "Incomplete Details", success: false })
         }
 
