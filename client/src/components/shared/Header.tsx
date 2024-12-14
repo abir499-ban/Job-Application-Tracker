@@ -4,7 +4,7 @@ const Header = () => {
     return (
         <>
 
-            <header className="bg-white dark:bg-gray-900">
+            <header className="bg-gray-900 dark:bg-gray-900">
                 <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
 
@@ -13,7 +13,7 @@ const Header = () => {
                                 <ul className="flex items-center gap-6 text-sm justify-center text-center">
                                     <li>
                                         <a
-                                            className=" font-poppins text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+                                            className=" font-poppins text-white transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
                                             href="/"
                                         >
                                             Home
@@ -22,7 +22,7 @@ const Header = () => {
 
                                     <li>
                                         <a
-                                            className=" font-poppins text-yellow-400 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
+                                            className=" font-poppins text-white transition hover:text-yellow-500/75 dark:text-white dark:hover:text-white/75"
                                             href="/addjob"
                                         >
                                             Add a Job Application
