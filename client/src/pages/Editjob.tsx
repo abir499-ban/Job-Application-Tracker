@@ -30,6 +30,23 @@ const Editjob = () => {
         fetchJob();
     }, [])
 
+
+    const handleEditJob = async(jobId : string) => {
+        try {
+            const result = await fetch(`http://localhost:8000/job/${jobId}`, {
+                method:'PATCH',
+                headers:{
+                    'Content-Type' : 'Application/json',
+                },
+                body: JSON.stringify(JobDetails)
+            })
+            const data = await result.json();
+            console.log(data.message)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <>
             {/*
@@ -127,7 +144,11 @@ const Editjob = () => {
                     <div className="flex items-center justify-between">
                         <button
                             type="submit"
-                            className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+                            className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white hover:bg-blue-700"
+                            onClick={(e)=>{
+                                e.preventDefault()
+                                handleEditJob(JobDetails._id)
+                            }}
                         >
                             Save
                         </button>
