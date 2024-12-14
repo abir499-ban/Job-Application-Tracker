@@ -4,6 +4,8 @@ import { Chart } from 'react-google-charts'
 import Jobinfocard from "../components/shared/Jobinfocard";
 import { JobApplication } from '../types/types'
 import { Select, Option, Button } from "@material-tailwind/react";
+import { Switch } from "@material-tailwind/react";
+import { SortJobs } from "../utils/sort";
 
 
 const Dashboard = () => {
@@ -15,6 +17,8 @@ const Dashboard = () => {
     Rejected: 0
   })
   const [FilteringStatus, setFilteringStatus] = useState("")
+  const [recent, setrecent] = useState(true)
+  const [filteringState, setfilteringState] = useState(false)
 
   const setStatusInfo = (JobCollection: JobApplication[]) => {
     let applied = 0; let interviewing = 0; let offered = 0; let rejected = 0;
@@ -52,21 +56,45 @@ const Dashboard = () => {
         }
       })
       const data = await result.json();
-      console.log(data.message);
-      setapplicationinfo(data.message);
-      setStatusInfo(data.message)
+      //console.log(data.message);
+      const SortedJobApplication = SortJobs(data.message, recent);
+      setapplicationinfo(SortedJobApplication);
+      setStatusInfo(SortedJobApplication)
+
     }
     fetchJobsInfo();
   }, [])
 
-  const HandleFilterBystatus = async (status: string) => {
+  const HandleFilterBystatus = async () => {
+    setfilteringState(true);
     try {
-      if(status === "") return;
-      
-      console.log(status)
+      if (FilteringStatus === "") return;
+      const result = await fetch(`http://localhost:8000/job/filterjobs/${FilteringStatus}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'Application/json'
+        }
+      })
+      const data = await result.json();
+      setapplicationinfo(data.message)
     } catch (error) {
       console.log(error)
+    }finally{
+      setfilteringState(false)
     }
+  }
+
+  const toggleOrder = () =>{
+    console.log(recent)
+    setrecent((prev)=>(!prev))
+    try {
+      const SortedJobApplication : JobApplication[]   =  SortJobs(applicationinfo, !recent)
+      console.log(SortedJobApplication)
+      setapplicationinfo(SortedJobApplication)
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
   return (
@@ -92,7 +120,6 @@ const Dashboard = () => {
           ) : (
             <article className="rounded-xl bg-white p-1 ring ring-indigo-50 sm:p-6 sm:px-0 lg:p-8">
               <div className="flex flex-col md:flex-row items-start gap-6 sm:gap-8">
-                {/* Info Section */}
                 <div className="flex-1">
                   <strong
                     className="bg-teal-500 px-3 py-1.5 text-[15px] font-medium text-white rounded-lg"
@@ -127,11 +154,26 @@ const Dashboard = () => {
           )}
 
         </div>
-        <div className="container mx-auto py-10 px-4">
-          <h2 className="py-4 font-bold text-base md:text-lg lg:text-xl text-center">Filter Job Applications</h2>
-          <div className="grid grid-cols-3 gap-5 sm:gap-4 place-items-center">
-            <div className="w-full sm:w-3/4 lg:w-72">
+        <div className="container mx-auto py-10 px-1 sm:px-0">
+          <h2 className="py-4 font-bold text-base md:text-lg sm:text-xl text-center">Filter Job Applications</h2>
+          <div className="grid grid-cols-3 gap-5   sm:gap-1 place-items-center ">
+            <div className="w-full sm:w-auto">{
+              recent ? (
+                <Switch defaultChecked color='blue' label="Recent Job Applications" crossOrigin={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                  onClick={toggleOrder} />
+              ) : (
+                <Switch color='blue' label="Recent Job Applications" crossOrigin={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                  onClick={toggleOrder} />
+              )
+            }</div>
+
+            <div className="w-full sm:w-auto">
               <Select
+
                 label="Filter by Status"
                 placeholder={FilteringStatus === "" ? 'Select Status' : FilteringStatus}
                 onPointerEnterCapture={undefined}
@@ -147,26 +189,35 @@ const Dashboard = () => {
                 <Option value="REJECTED">Rejected</Option>
               </Select>
             </div>
+
             <div className="w-full sm:w-auto text-center">
               <Button
                 placeholder={undefined}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
-                onClick={() => HandleFilterBystatus(FilteringStatus)}
+                onClick={() => HandleFilterBystatus()}
               >
                 Filter
               </Button>
             </div>
+
           </div>
+
+
+
+
+          <div className="py-10 px-7 sm:px-2 lg:px-14">
+            {
+              filteringState ? (
+                <div className="grid grid-cols-1  place-items-center h-56"> <Loader size={44} /></div>
+              ) : (
+                <Jobinfocard applicationInfo={applicationinfo} />
+              )
+            }
+            
+          </div>
+
         </div>
-
-
-
-
-        <div className="py-10 px-7 sm:px-2 lg:px-14">
-          <Jobinfocard applicationInfo={applicationinfo} />
-        </div>
-
       </div>
     </>
   );
