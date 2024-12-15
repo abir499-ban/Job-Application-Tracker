@@ -2,7 +2,7 @@ import { useContext } from "react"
 import AuthContext from "../../context/Authcontext"
 import { User } from "lucide-react"
 import { Button } from "@material-tailwind/react"
-import { Link, useNavigate } from "react-router"
+import { useNavigate } from "react-router"
 
 const Header = () => {
     const navigate = useNavigate();
