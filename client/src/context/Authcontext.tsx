@@ -1,11 +1,12 @@
-import { createContext, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode, useEffect } from "react";
 import { UserCreationPayload, UserLoginPayload, UserType } from '../types/types';
 
 type AuthContextType = {
     user: UserType | null; 
     setuser: React.Dispatch<React.SetStateAction<UserType | null>>; 
     registerUser: (userData: UserCreationPayload) => Promise<void>; 
-    loginUser : (userData : UserLoginPayload) => Promise<void>
+    loginUser : (userData : UserLoginPayload) => Promise<void>;
+    checkUserLogin : () => Promise<void>
 };
 
 interface AuthContextProviderProps {
@@ -17,13 +18,49 @@ const defaultAuthContext: AuthContextType = {
     user: null,
     setuser: () => {}, 
     registerUser: async () => {}, 
-    loginUser : async() => {}
+    loginUser : async() => {},
+    checkUserLogin : async() => {}
 };
 
 const AuthContext = createContext<AuthContextType>(defaultAuthContext);
 
 const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ children }) => {
     const [user, setuser] = useState<UserType | null>(null);
+    useEffect(()=>{
+        checkUserLogin();
+    }, [])
+
+
+
+    //check User login middleware
+    const checkUserLogin = async() =>{
+        //console.log('Hi from checkUserLogin')
+        try {
+            let authToken = localStorage.getItem('token') || null;
+            
+            if(authToken === null){
+                //console.log('Token😣: ',authToken)
+                setuser(null);
+                return;
+            }
+            const result = await fetch(`http://localhost:8000/user/verify/${authToken}`, {
+                method:"GET",
+                headers:{
+                    'Content-Type': 'application/json',
+                }
+            })
+
+            const data = await result.json();
+            if(data.success === true){
+                setuser(data.user);
+            }else{
+                setuser(null)
+            }
+
+        } catch (error) {
+            throw new Error('error occured');
+        }
+    }
 
     // Register user
     const registerUser = async (userData: UserCreationPayload) => {
@@ -73,7 +110,7 @@ const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ children }) =
     }
 
     return (
-        <AuthContext.Provider value={{ registerUser, user, setuser,loginUser }}>
+        <AuthContext.Provider value={{ registerUser, user, setuser,loginUser, checkUserLogin }}>
             {children}
         </AuthContext.Provider>
     );

@@ -39,7 +39,7 @@ const Header = () => {
                         </div>
 
                         <div className="flex items-center gap-4">
-                            {user != null ? (
+                            {user === null ? (
                                 <div className="sm:flex sm:gap-4">
                                 <a
                                     className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"

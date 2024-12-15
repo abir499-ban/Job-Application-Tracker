@@ -67,7 +67,25 @@ async function handlelogin(req, res) {
 
 }
 
+
+async function VerifyUser(req, res){
+    try {
+        const token = req.params.token;
+        if(!token)
+            return res.status(401).json({message:'Not Logged In', success:false});
+
+        const payload =  jwt.verify(token, TOKEN_SECRET);
+        if(!payload)
+            return res.status(401).json({message:'Not Logged In', success:false});
+
+        return res.status(201).json({ payload , success:true});
+    } catch (error) {
+        
+    }
+}
+
 module.exports = {
     createUser,
-    handlelogin
+    handlelogin,
+    VerifyUser
 }
