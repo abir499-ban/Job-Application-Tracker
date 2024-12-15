@@ -6,7 +6,8 @@ type AuthContextType = {
     setuser: React.Dispatch<React.SetStateAction<UserType | null>>; 
     registerUser: (userData: UserCreationPayload) => Promise<void>; 
     loginUser : (userData : UserLoginPayload) => Promise<void>;
-    checkUserLogin : () => Promise<void>
+    checkUserLogin : () => Promise<void>;
+    logOut : () => Promise<void>;
 };
 
 interface AuthContextProviderProps {
@@ -19,7 +20,8 @@ const defaultAuthContext: AuthContextType = {
     setuser: () => {}, 
     registerUser: async () => {}, 
     loginUser : async() => {},
-    checkUserLogin : async() => {}
+    checkUserLogin : async() => {},
+    logOut : async() => {},
 };
 
 const AuthContext = createContext<AuthContextType>(defaultAuthContext);
@@ -109,8 +111,18 @@ const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ children }) =
         }
     }
 
+    //log out
+    const logOut = async() =>{
+        try {
+            console.log('Token cleared')
+            localStorage.clear();
+        } catch (error) {
+            throw new Error('Error occured');
+        }
+    }
+
     return (
-        <AuthContext.Provider value={{ registerUser, user, setuser,loginUser, checkUserLogin }}>
+        <AuthContext.Provider value={{ registerUser, user, setuser,loginUser, checkUserLogin, logOut }}>
             {children}
         </AuthContext.Provider>
     );

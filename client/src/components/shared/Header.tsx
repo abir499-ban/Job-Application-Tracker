@@ -4,7 +4,7 @@ import { User } from "lucide-react"
 import { Button } from "@material-tailwind/react"
 
 const Header = () => {
-    const {user} = useContext(AuthContext)
+    const {user,logOut} = useContext(AuthContext)
     return (
         <>
 
@@ -62,7 +62,9 @@ const Header = () => {
                                 <Button color="red" 
                                 placeholder={undefined} 
                                 onPointerEnterCapture={undefined} 
-                                onPointerLeaveCapture={undefined}>Log out</Button></div>
+                                onPointerLeaveCapture={undefined}
+                                onClick={()=>logOut()}
+                                >Log out</Button></div>
                             )}
 
                             <div className="block md:hidden">
