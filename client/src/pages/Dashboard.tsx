@@ -49,7 +49,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchJobsInfo = async () => {
-      const result = await fetch('http://localhost:8000/job/alljobs', {
+      const result = await fetch('https://job-application-backend.vercel.app/job/alljobs', {
         method: 'GET',
         headers: {
           'Content-Type': 'Application/json'
@@ -69,7 +69,7 @@ const Dashboard = () => {
     setfilteringState(true);
     try {
       if (FilteringStatus === "") return;
-      const result = await fetch(`http://localhost:8000/job/filterjobs/${FilteringStatus}`, {
+      const result = await fetch(`https://job-application-backend.vercel.app/job/filterjobs/${FilteringStatus}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'Application/json'

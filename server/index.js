@@ -12,7 +12,7 @@ app.use(express.urlencoded({extended:false}))
 
 
 const corsOption = {
-    origin : "http://localhost:5173"
+    origin : "https://job-application-backend.vercel.app"
 }
 app.use(cors(corsOption))
 
