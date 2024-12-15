@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import { JobApplication } from '../types/types'
 const Editjob = () => {
+    const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const [JobDetails, setJobDetails] = useState<JobApplication>({
         _id: "",
@@ -31,17 +32,33 @@ const Editjob = () => {
     }, [])
 
 
-    const handleEditJob = async(jobId : string) => {
+    const handleEditJob = async (jobId: string) => {
         try {
             const result = await fetch(`http://localhost:8000/job/${jobId}`, {
-                method:'PATCH',
-                headers:{
-                    'Content-Type' : 'Application/json',
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'Application/json',
                 },
                 body: JSON.stringify(JobDetails)
             })
             const data = await result.json();
             console.log(data.message)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const HandleDeleteJob = async () => {
+        try {
+            const result = await fetch(`http://localhost:8000/job/${JobDetails._id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'Application/json',
+                }
+            })
+            const data = await result.json();
+            console.log(data.message);
+            navigate('/');
         } catch (error) {
             console.log(error)
         }
@@ -141,16 +158,23 @@ const Editjob = () => {
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-row gap-5 sm:gap-1 items-center justify-between">
                         <button
                             type="submit"
                             className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white hover:bg-blue-700"
-                            onClick={(e)=>{
+                            onClick={(e) => {
                                 e.preventDefault()
                                 handleEditJob(JobDetails._id)
                             }}
                         >
                             Save
+                        </button>
+                        <button
+
+                            className="inline-block rounded-lg bg-red-600 px-5 py-3 text-sm font-medium text-white hover:bg-red-900"
+                            onClick={HandleDeleteJob}
+                        >
+                            Delete
                         </button>
                     </div>
                 </form>
