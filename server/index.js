@@ -11,10 +11,11 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
 
-const corsOption = {
-    origin : "https://job-application-backend.vercel.app"
-}
-app.use(cors(corsOption))
+app.use(cors());
+// Allow specific origin(s)
+app.use(cors({
+  origin: 'https://job-application-backend.vercel.app'
+}));
 
 
 app.use('/favicon.ico', (req,res,next)=>{
