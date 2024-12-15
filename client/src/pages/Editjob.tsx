@@ -20,7 +20,7 @@ const Editjob = () => {
         const fetchJob = async () => {
             try {
                 const id = searchParams.get('id');
-                const result = await fetch(`http://localhost:8000/job/${id}`)
+                const result = await fetch(`https://job-application-backend.vercel.app/job/${id}`)
                 const data = await result.json();
                 console.log(data.message)
                 setJobDetails(data.message)
@@ -34,7 +34,7 @@ const Editjob = () => {
 
     const handleEditJob = async (jobId: string) => {
         try {
-            const result = await fetch(`http://localhost:8000/job/${jobId}`, {
+            const result = await fetch(`https://job-application-backend.vercel.app/job/${jobId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'Application/json',
@@ -50,7 +50,7 @@ const Editjob = () => {
 
     const HandleDeleteJob = async () => {
         try {
-            const result = await fetch(`http://localhost:8000/job/${JobDetails._id}`, {
+            const result = await fetch(`https://job-application-backend.vercel.app/job/${JobDetails._id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'Application/json',

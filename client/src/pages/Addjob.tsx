@@ -17,7 +17,7 @@ const Addjob = () => {
         setloading(true)
         console.table(AddJobPayload);
         try {
-            const data = await fetch('http://localhost:8000/job', {
+            const data = await fetch('https://job-application-backend.vercel.app/job', {
                 method : 'POST',
                 headers : {
                     'Content-Type' : 'Application/json'

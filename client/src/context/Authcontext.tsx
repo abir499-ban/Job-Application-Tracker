@@ -45,7 +45,7 @@ const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ children }) =
                 setuser(null);
                 return;
             }
-            const result = await fetch(`http://localhost:8000/user/verify/${authToken}`, {
+            const result = await fetch(`https://job-application-backend.vercel.app/user/verify/${authToken}`, {
                 method:"GET",
                 headers:{
                     'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ children }) =
         try {
             console.log("From AuthContext")
             console.table(userData)
-            const result = await fetch('http://localhost:8000/user', {
+            const result = await fetch('https://job-application-backend.vercel.app/user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ children }) =
     const loginUser = async(userData : UserLoginPayload) =>{
         try {
             console.log("FromAuthcontext", userData);
-            const result = await fetch('http://localhost:8000/user/login', {
+            const result = await fetch('https://job-application-backend.vercel.app/user/login', {
                 method:'POST',
                 headers: {
                     'Content-Type': 'application/json',
