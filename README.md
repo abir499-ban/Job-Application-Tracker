@@ -19,7 +19,7 @@ The Job Application System is a web-based platform built using the MERN (MongoDB
 
 ### 4. **Employer Dashboard**
    - Users can view a list of all job applications along with their details.
-   - The dashboard also has features a display the total number of applications and 
+   - The dashboard also has features a display the total number of applications and displays a pie chart to display the data of Applications per status. 
 
 ### 5. **Search and Filters**
    - Users can filter job applications based on status and date applied.
