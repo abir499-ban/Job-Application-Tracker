@@ -1,5 +1,30 @@
+import { useContext, useState } from "react"
+import { UserLoginPayload } from "../../types/types"
+import { Link, useNavigate } from "react-router-dom"
+import AuthContext from "../../context/Authcontext"
+import { Loader } from "lucide-react"
 
 const Login = () => {
+    const [userLoginPayload, setuserLoginPayload] = useState<UserLoginPayload>({
+        email:"",
+        password:""
+    })
+    const navigate = useNavigate();
+    const {loginUser} = useContext(AuthContext)
+    const [loading, setloading] = useState(false)
+
+    const HandleLogin =async(e:React.MouseEvent<HTMLButtonElement>) =>{
+        e.preventDefault();
+        setloading(true);
+        try {
+            loginUser(userLoginPayload)
+            navigate('/')
+        } catch (error) {
+            console.log(error);
+        }finally{
+            setloading(false);
+        }
+    }
     return (
         <>
             {/*
@@ -25,7 +50,7 @@ const Login = () => {
                         <div className="max-w-xl lg:max-w-3xl">
 
                             <h1 className="mt-6 text-2xl font-poppins font-bold text-gray-900 sm:text-3xl md:text-4xl">
-                                Login to Get Started
+                                Log In to Get Started
                             </h1>
 
 
@@ -38,6 +63,11 @@ const Login = () => {
                                         id="Email"
                                         name="email"
                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                                        value={userLoginPayload.email}
+                                        onChange={(e : React.ChangeEvent<HTMLInputElement>)=>setuserLoginPayload((prev) =>({
+                                            ...prev,
+                                            email:e.target.value
+                                        }))}
                                     />
                                 </div>
 
@@ -49,30 +79,32 @@ const Login = () => {
                                         id="Password"
                                         name="password"
                                         className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                                        value={userLoginPayload.password}
+                                        onChange={(e : React.ChangeEvent<HTMLInputElement>)=>setuserLoginPayload((prev) => ({
+                                            ...prev,
+                                            password : e.target.value
+                                        }))}
                                     />
                                 </div>
 
                                 
 
-                                <div className="col-span-6">
-                                    <p className="text-sm text-gray-500">
-                                        By creating an account, you agree to our
-                                        <a href="#" className="text-gray-700 underline"> terms and conditions </a>
-                                        and
-                                        <a href="#" className="text-gray-700 underline">privacy policy</a>.
-                                    </p>
-                                </div>
+                                
 
                                 <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                                     <button
                                         className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
+                                        type="submit"
+                                        onClick={HandleLogin}
                                     >
-                                        Create an account
+                                        {!loading ? 'Log In' : (
+                                            <Loader/>
+                                        )}
                                     </button>
 
                                     <p className="mt-4 text-sm text-gray-500 sm:mt-0">
-                                        Already have an account?
-                                        <a href="#" className="text-gray-700 underline">Log in</a>.
+                                        Don't have an account? 
+                                        <Link to="/signup" className="text-gray-700 underline">Regsiter now!!</Link>.
                                     </p>
                                 </div>
                             </form>

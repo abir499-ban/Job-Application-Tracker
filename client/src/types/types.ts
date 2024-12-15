@@ -1,4 +1,4 @@
-export type JobApplication ={
+export type JobApplication = {
     _id: string;
     companyName: string;
     createdAt: string;
@@ -11,11 +11,11 @@ export type JobApplication ={
 }
 
 export type UserCreationPayload = {
-    name : string,
-    email : string,
-    password : string,
-    gender : string,
-    role : string
+    name: string,
+    email: string,
+    password: string,
+    gender: string,
+    role: string
 }
 
 
@@ -23,8 +23,13 @@ export type UserType = {
     _id: string;
     name: string;
     email: string;
-    password: string;
-    gender: string; 
-    role: string; 
+    password?: string;
+    gender: string;
+    role: string;
     __v: number;
-  };
+};
+
+export type UserLoginPayload = {
+    email : string,
+    password : string,
+}

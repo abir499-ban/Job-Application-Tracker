@@ -1,8 +1,9 @@
 import { useContext, useState } from "react"
 import {Radio} from '@material-tailwind/react'
-import AuthContext from "../../context/authcontext"
+
 import { Loader } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../../context/Authcontext";
 
 
 const SignUp = () => {
@@ -26,12 +27,12 @@ const SignUp = () => {
     e.preventDefault();
     try {
       registerUser(user)
+      navigate('/login')
     } catch (error) {
       console.log(error)
     }finally{
       setloading(false)
     }
-    navigate('/login')
   }
   return (
     <>
