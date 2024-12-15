@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended:false}))
 app.use(cors());
 // Allow specific origin(s)
 app.use(cors({
-  origin: 'https://job-application-backend.vercel.app'
+  origin: 'https://job-application-frontend-jade.vercel.app'
 }));
 
 
