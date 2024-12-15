@@ -2,9 +2,10 @@ import { useContext } from "react"
 import AuthContext from "../../context/Authcontext"
 import { User } from "lucide-react"
 import { Button } from "@material-tailwind/react"
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 
 const Header = () => {
+    const navigate = useNavigate();
     const { user, logOut } = useContext(AuthContext)
     return (
         <>
@@ -42,12 +43,12 @@ const Header = () => {
                         <div className="flex items-center gap-4">
                             {user === null ? (
                                 <div className="sm:flex sm:gap-4">
-                                    <Link
+                                    <button
                                         className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"
-                                        to="/login"
+                                        onClick={()=>(navigate('/login'))}
                                     >
                                         Login
-                                    </Link>
+                                    </button>
 
                                     <div className="hidden sm:flex">
                                         <Link
