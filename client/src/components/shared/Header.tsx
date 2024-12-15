@@ -2,9 +2,10 @@ import { useContext } from "react"
 import AuthContext from "../../context/Authcontext"
 import { User } from "lucide-react"
 import { Button } from "@material-tailwind/react"
+import { Link } from "react-router"
 
 const Header = () => {
-    const {user,logOut} = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
     return (
         <>
 
@@ -33,7 +34,7 @@ const Header = () => {
                                         </a>
                                     </li>
 
-                                    
+
                                 </ul>
                             </nav>
                         </div>
@@ -41,30 +42,30 @@ const Header = () => {
                         <div className="flex items-center gap-4">
                             {user === null ? (
                                 <div className="sm:flex sm:gap-4">
-                                <a
-                                    className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"
-                                    href="\login"
-                                >
-                                    Login
-                                </a>
-
-                                <div className="hidden sm:flex">
-                                    <a
-                                        className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
-                                        href="/signup"
+                                    <Link
+                                        className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"
+                                        to="/login"
                                     >
-                                        Register
-                                    </a>
+                                        Login
+                                    </Link>
+
+                                    <div className="hidden sm:flex">
+                                        <Link
+                                            className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
+                                            to="/signup"
+                                        >
+                                            Register
+                                        </Link>
+                                    </div>
                                 </div>
-                            </div>
                             ) : (
                                 <div className="flex flex-row gap-4 justify-evenly"><User size={48} color="#acecec" strokeWidth={1.25} />
-                                <Button color="red" 
-                                placeholder={undefined} 
-                                onPointerEnterCapture={undefined} 
-                                onPointerLeaveCapture={undefined}
-                                onClick={()=>logOut()}
-                                >Log out</Button></div>
+                                    <Button color="red"
+                                        placeholder={undefined}
+                                        onPointerEnterCapture={undefined}
+                                        onPointerLeaveCapture={undefined}
+                                        onClick={() => logOut()}
+                                    >Log out</Button></div>
                             )}
 
                             <div className="block md:hidden">
