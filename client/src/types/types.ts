@@ -9,3 +9,22 @@ export type JobApplication ={
     updatedAt: string;
     __v: number;
 }
+
+export type UserCreationPayload = {
+    name : string,
+    email : string,
+    password : string,
+    gender : string,
+    role : string
+}
+
+
+export type UserType = {
+    _id: string;
+    name: string;
+    email: string;
+    password: string;
+    gender: string; 
+    role: string; 
+    __v: number;
+  };
