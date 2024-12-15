@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { UserLoginPayload } from "../../types/types"
 import { Link, useNavigate } from "react-router-dom"
 import AuthContext from "../../context/Authcontext"
@@ -10,8 +10,12 @@ const Login = () => {
         password:""
     })
     const navigate = useNavigate();
-    const {loginUser} = useContext(AuthContext)
+    const {loginUser,user} = useContext(AuthContext)
     const [loading, setloading] = useState(false)
+
+    useEffect(()=>{
+        console.log(user?.email)
+    },[user])
 
     const HandleLogin =async(e:React.MouseEvent<HTMLButtonElement>) =>{
         e.preventDefault();

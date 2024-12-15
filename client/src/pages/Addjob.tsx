@@ -1,9 +1,11 @@
-import { useState } from "react"
+import {useContext, useState } from "react"
 import {Loader} from  'lucide-react'
 import {useNavigate} from 'react-router-dom'
+import AuthContext from '../context/Authcontext.tsx'
 
 const Addjob = () => {
     const navigate  = useNavigate();
+    const {user} = useContext(AuthContext);
     const [AddJobPayload, setAddJobPayload] = useState({
         jobTitle : '',
         companyName : '',
@@ -44,7 +46,7 @@ const Addjob = () => {
             <section className="relative flex flex-wrap lg:h-screen lg:items-center">
                 <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
                     <div className="mx-auto max-w-lg text-center">
-                        <h1 className="text-2xl font-bold sm:text-3xl">Create your Job Application Today!</h1>
+                        <h1 className="text-2xl font-bold sm:text-3xl">Create your Job Application Today!{user?.email}</h1>
 
                         <p className="mt-4 text-gray-500">
                         Take the first step in landing your dream job by crafting a compelling job application. 

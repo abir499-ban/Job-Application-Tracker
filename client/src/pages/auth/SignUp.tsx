@@ -1,5 +1,5 @@
-import { useContext, useState } from "react"
-import {Radio} from '@material-tailwind/react'
+import { useContext, useEffect, useState } from "react"
+import { Radio } from '@material-tailwind/react'
 
 import { Loader } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,30 +7,34 @@ import AuthContext from "../../context/Authcontext";
 
 
 const SignUp = () => {
-  const {registerUser} = useContext(AuthContext);
+  const { registerUser, user } = useContext(AuthContext);
   const [loading, setloading] = useState(false)
   const navigate = useNavigate();
 
-  const [user, setuser] = useState({
+  const [User, setUser] = useState({
     name: "",
     email: "",
     password: "",
     gender: "Nan",
     role: "User"
   })
-  
 
 
+  useEffect(() => {
+    if (user) {
+      navigate('/')
+    }
+  }, [])
 
-  const HandleSubmit = async(e:React.MouseEvent<HTMLButtonElement>) =>{
+  const HandleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     setloading(true)
     e.preventDefault();
     try {
-      registerUser(user)
+      registerUser(User)
       navigate('/login')
     } catch (error) {
       console.log(error)
-    }finally{
+    } finally {
       setloading(false)
     }
   }
@@ -60,11 +64,11 @@ const SignUp = () => {
 
 
               <h1 className="mt-6 text-2xl font-poppins font-bold text-gray-900 sm:text-3xl md:text-4xl">
-                Welcome to Job Application Tracker
+                Welcome to Job Application Tracker 
               </h1>
 
               <p className="mt-4 leading-relaxed text-gray-500">
-              Easily sign up by providing your email, creating a password, and filling out your profile to start tracking your job applications effortlessly.
+                Easily sign up by providing your email, creating a password, and filling out your profile to start tracking your job applications effortlessly.
               </p>
 
               <form className="mt-8 grid grid-cols-6 gap-6">
@@ -78,8 +82,8 @@ const SignUp = () => {
                     id="FirstName"
                     name="first_name"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                    value={user.name}
-                    onChange={(e) => setuser((prev) => ({
+                    value={User.name}
+                    onChange={(e) => setUser((prev) => ({
                       ...prev,
                       name: e.target.value
                     }))}
@@ -96,8 +100,8 @@ const SignUp = () => {
                     id="Email"
                     name="email"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                    value={user.email}
-                    onChange={(e) => setuser((prev) => ({
+                    value={User.email}
+                    onChange={(e) => setUser((prev) => ({
                       ...prev,
                       email: e.target.value
                     }))}
@@ -112,8 +116,8 @@ const SignUp = () => {
                     id="Password"
                     name="password"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                    value={user.password}
-                    onChange={(e) => setuser((prev) => ({
+                    value={User.password}
+                    onChange={(e) => setUser((prev) => ({
                       ...prev,
                       password: e.target.value
                     }))}
@@ -134,25 +138,25 @@ const SignUp = () => {
               </div> */}
 
                 <div className="col-span-6">
-                  <Radio name="Gender" label="Male" 
-                  value="Male"
-                  onPointerEnterCapture={undefined} 
-                  onPointerLeaveCapture={undefined} 
-                  crossOrigin={undefined} 
-                  onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setuser((prev)=>({
-                    ...prev,
-                    gender:e.target.value
-                  }))}/>
-                  <Radio name="Gender" label="Female" 
-                  value="Female"
-                  defaultChecked 
-                  onPointerEnterCapture={undefined} 
-                  onPointerLeaveCapture={undefined} 
-                  crossOrigin={undefined} 
-                  onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setuser((prev)=>({
-                    ...prev,
-                    gender:e.target.value
-                  }))}
+                  <Radio name="Gender" label="Male"
+                    value="Male"
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                    crossOrigin={undefined}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUser((prev) => ({
+                      ...prev,
+                      gender: e.target.value
+                    }))} />
+                  <Radio name="Gender" label="Female"
+                    value="Female"
+                    defaultChecked
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                    crossOrigin={undefined}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUser((prev) => ({
+                      ...prev,
+                      gender: e.target.value
+                    }))}
                   />
                 </div>
 
@@ -160,12 +164,12 @@ const SignUp = () => {
 
                 <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                   <button
-                  type="submit"
+                    type="submit"
                     className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
-                   onClick={HandleSubmit}
+                    onClick={HandleSubmit}
                   >
                     {!loading ? 'Create an Accunt' : (
-                      <Loader/>
+                      <Loader />
                     )}
                   </button>
 

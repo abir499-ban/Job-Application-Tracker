@@ -103,6 +103,7 @@ const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ children }) =
                 localStorage.setItem('token', data.token);
                 setuser(data.sanitizedUser);
                 console.log('Sucessfull Login')
+                console.table(data.sanitizedUser)
             }else{
                 throw new Error('error occured');
             }
