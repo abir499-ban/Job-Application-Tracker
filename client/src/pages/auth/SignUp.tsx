@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import {Radio} from '@material-tailwind/react'
 import AuthContext from "../../context/authcontext"
 import { Loader } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const SignUp = () => {
@@ -58,13 +58,12 @@ const SignUp = () => {
             <div className="max-w-xl lg:max-w-3xl">
 
 
-              <h1 className="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-                Welcome to Squid
+              <h1 className="mt-6 text-2xl font-poppins font-bold text-gray-900 sm:text-3xl md:text-4xl">
+                Welcome to Job Application Tracker
               </h1>
 
               <p className="mt-4 leading-relaxed text-gray-500">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum aliquam,
-                quibusdam aperiam voluptatum.
+              Easily sign up by providing your email, creating a password, and filling out your profile to start tracking your job applications effortlessly.
               </p>
 
               <form className="mt-8 grid grid-cols-6 gap-6">
@@ -171,7 +170,7 @@ const SignUp = () => {
 
                   <p className="mt-4 text-sm text-gray-500 sm:mt-0">
                     Already have an account?
-                    <a href="#" className="text-gray-700 underline">Log in</a>.
+                    <Link to="/login" className="text-gray-700 underline">Log in</Link>.
                   </p>
                 </div>
               </form>
