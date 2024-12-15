@@ -18,21 +18,21 @@ const Header = () => {
                             <nav aria-label="Global">
                                 <ul className="flex items-center gap-6 text-sm justify-center text-center">
                                     <li>
-                                        <a
+                                        <button
                                             className=" font-poppins text-white transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
-                                            href="/"
+                                            onClick={()=>(navigate('/'))}
                                         >
                                             Home
-                                        </a>
+                                        </button>
                                     </li>
 
                                     <li>
-                                        <a
+                                        <button
                                             className=" font-poppins text-white transition hover:text-yellow-500/75 dark:text-white dark:hover:text-white/75"
-                                            href="/addjob"
+                                            onClick={()=>(navigate('/addjob'))}
                                         >
                                             Add a Job Application
-                                        </a>
+                                        </button>
                                     </li>
 
 
@@ -51,12 +51,12 @@ const Header = () => {
                                     </button>
 
                                     <div className="hidden sm:flex">
-                                        <Link
+                                        <button
                                             className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
-                                            to="/signup"
+                                            onClick={()=>(navigate('/signup'))}
                                         >
                                             Register
-                                        </Link>
+                                        </button>
                                     </div>
                                 </div>
                             ) : (
