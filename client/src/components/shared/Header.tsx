@@ -1,6 +1,10 @@
-
+import { useContext } from "react"
+import AuthContext from "../../context/Authcontext"
+import { User } from "lucide-react"
+import { Button } from "@material-tailwind/react"
 
 const Header = () => {
+    const {user} = useContext(AuthContext)
     return (
         <>
 
@@ -35,7 +39,8 @@ const Header = () => {
                         </div>
 
                         <div className="flex items-center gap-4">
-                            <div className="sm:flex sm:gap-4">
+                            {user != null ? (
+                                <div className="sm:flex sm:gap-4">
                                 <a
                                     className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"
                                     href="\login"
@@ -52,6 +57,13 @@ const Header = () => {
                                     </a>
                                 </div>
                             </div>
+                            ) : (
+                                <div className="flex flex-row gap-4 justify-evenly"><User size={48} color="#acecec" strokeWidth={1.25} />
+                                <Button color="red" 
+                                placeholder={undefined} 
+                                onPointerEnterCapture={undefined} 
+                                onPointerLeaveCapture={undefined}>Log out</Button></div>
+                            )}
 
                             <div className="block md:hidden">
                                 <button
