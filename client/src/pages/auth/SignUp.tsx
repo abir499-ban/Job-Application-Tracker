@@ -1,9 +1,14 @@
 import { useContext, useState } from "react"
 import {Radio} from '@material-tailwind/react'
 import AuthContext from "../../context/authcontext"
+import { Loader } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
 
 const SignUp = () => {
   const {registerUser} = useContext(AuthContext);
+  const [loading, setloading] = useState(false)
+  const navigate = useNavigate();
 
   const [user, setuser] = useState({
     name: "",
@@ -17,12 +22,16 @@ const SignUp = () => {
 
 
   const HandleSubmit = async(e:React.MouseEvent<HTMLButtonElement>) =>{
+    setloading(true)
     e.preventDefault();
     try {
       registerUser(user)
     } catch (error) {
       console.log(error)
+    }finally{
+      setloading(false)
     }
+    navigate('/login')
   }
   return (
     <>
@@ -155,7 +164,9 @@ const SignUp = () => {
                     className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
                    onClick={HandleSubmit}
                   >
-                    Create an account
+                    {!loading ? 'Create an Accunt' : (
+                      <Loader/>
+                    )}
                   </button>
 
                   <p className="mt-4 text-sm text-gray-500 sm:mt-0">

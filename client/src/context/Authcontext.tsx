@@ -39,10 +39,10 @@ const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ children }) =
             if (data.success === true) {
                 console.log("User successfully registered")
             } else {
-                console.log(data.message);
+                throw new Error('error occured');
             }
         } catch (error) {
-            console.error(error);
+            throw new Error('error occured');
         }
     };
 
