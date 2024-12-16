@@ -32,23 +32,23 @@ The Job Application System is a web-based platform built using the MERN (MongoDB
 ## Tech Stack
 
 - **Frontend**: 
-  - React.js
-  - Tailwind CSS
-  - Context API
-  - Hyper UI
-  - Material Tailwind
+  - <a href='https://vite.dev/guide/'>React.js+Vite </a>
+  - <a href='https://tailwindcss.com/'>Tailwind CSS</a>
+  - <a href='https://react.dev/reference/react/createContext'>Context API</a>
+  - <a href='https://www.hyperui.dev/'>Hyper UI</a>
+  - <a href='https://www.material-tailwind.com/'>Material Tailwind</a>
   
 - **Backend**:
-  - Node.js
-  - Express.js
-  - JWT (JSON Web Token) for authentication
-  - Bcryptjs (for password hashing)
+  - <a href='https://nodejs.org/en'>Node.js</a>
+  - <a href='https://expressjs.com/'>Express.js</a>
+  - <a href='https://jwt.io/'>JWT</a> (JSON Web Token) for authentication
+  - <a href='https://www.npmjs.com/package/bcryptjs'>Bcryptjs</a> (for password hashing)
 
 - **Database**: 
-  - MongoDB (NoSQL Database using Mongoose ODM)
+  - <a href='https://www.mongodb.com/'>MongoDB</a>  (NoSQL Database using Mongoose ODM)
 
 - **Deployment**: 
-  - Vercel
+  - <a  href='https://vercel.com/'>Vercel</a>
 
 ## Installation
 
